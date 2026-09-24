@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Lista de presentes · Agnes & Ângelo</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💍</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=Jost:wght@400;500&display=swap" rel="stylesheet">
+<script>
+  /* ================================================================
+     COLE AQUI O LINK DA SUA APLICAÇÃO WEB DO GOOGLE APPS SCRIPT
+     (termina em /exec). Mantenha as aspas.
+     ================================================================ */
+  var SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbx7mfPLDo7W07Ew6gmX8jw26RjflBMIJRLqKucOqZU62VrfxgsJtv9XCOuNuBDwMYHxkA/exec';
+</script>
+<style>
+:root{
+  --bg:#EEF1EA; --paper:#F8FAF5; --ink:#1F3B2D; --muted:#5E7266;
+  --gold:#A8834A; --rose:#B7837A; --line:#D3DBCF; --shade:rgba(31,59,45,.45);
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px);
+  padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme: dark){
+  :root{--bg:#142219; --paper:#1B2C21; --ink:#E7EDE4; --muted:#9DB0A2;
+    --gold:#D4B07A; --rose:#D9A99F; --line:#2E4335; --shade:rgba(0,0,0,.6)}
+}
+*,*::before,*::after{box-sizing:inherit}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);
+  font-family:"Jost",system-ui,-apple-system,"Segoe UI",sans-serif;font-size:16px;line-height:1.55}
+.wrap{max-width:680px;margin:0 auto;padding:0 22px}
+button,input,a{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--gold);outline-offset:3px;border-radius:4px}
+.serif{font-family:"Cormorant Garamond",Georgia,"Times New Roman",serif}
+
+.hero{text-align:center;padding:64px 0 36px}
+.names{font-family:"Cormorant Garamond",Georgia,serif;font-weight:400;
+  font-size:clamp(46px,13vw,86px);line-height:.95;margin:0;letter-spacing:-.01em}
+.names .amp{display:block;font-style:italic;color:var(--gold);font-size:.9em;line-height:1;margin:.04em 0}
+.date{margin:22px 0 0;font-family:"Cormorant Garamond",Georgia,serif;font-size:21px;font-style:italic;color:var(--muted)}
+.title{margin:38px 0 10px;font-family:"Cormorant Garamond",Georgia,serif;font-weight:500;font-size:30px}
+.intro{max-width:30em;margin:0 auto;color:var(--muted)}
+.progress{margin:30px auto 0;max-width:320px}
+.bar{height:3px;background:var(--line);border-radius:3px;overflow:hidden}
+.bar i{display:block;height:100%;width:0;background:var(--gold);transition:width .6s ease}
+.progress p{margin:8px 0 0;font-size:14px;color:var(--muted);min-height:1.5em}
+
+.filters{position:sticky;top:0;z-index:5;background:var(--bg);padding:12px 0;border-bottom:1px solid var(--line)}
+.chips{display:flex;gap:8px;overflow-x:auto;scrollbar-width:none}
+.chips::-webkit-scrollbar{display:none}
+.chip{flex:none;border:1px solid var(--line);background:transparent;border-radius:999px;
+  padding:7px 15px;font-size:14px;cursor:pointer;white-space:nowrap}
+.chip[aria-pressed="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+
+section.cat{padding:34px 0 8px}
+.cat h2{font-family:"Cormorant Garamond",Georgia,serif;font-weight:500;font-size:28px;margin:0}
+.cat .note{margin:4px 0 14px;font-size:14px;color:var(--muted)}
+ul.items{list-style:none;margin:0;padding:0;border-top:1px solid var(--line)}
+li.item{display:flex;align-items:center;gap:16px;padding:15px 0;border-bottom:1px solid var(--line)}
+.item .txt{flex:1;min-width:0}
+.item .name{font-weight:500;margin:0}
+.item .desc{margin:1px 0 0;font-size:14px;color:var(--muted)}
+.item.done .name{color:var(--muted)}
+.item.flash{animation:flash 1.4s ease}
+@keyframes flash{0%{background:transparent}30%{background:color-mix(in srgb,var(--gold) 18%,transparent)}100%{background:transparent}}
+.btn{border:1px solid var(--ink);background:transparent;border-radius:999px;padding:7px 18px;
+  font-size:14px;cursor:pointer;flex:none;text-decoration:none;display:inline-block;text-align:center}
+.btn:hover{background:var(--ink);color:var(--bg)}
+.btn.solid{background:var(--ink);color:var(--bg)}
+.btn.solid:hover{opacity:.9}
+.btn:disabled{opacity:.5;cursor:default}
+.tag{flex:none;color:var(--rose);font-style:italic;font-family:"Cormorant Garamond",Georgia,serif;font-size:18px}
+.tag.mine{color:var(--gold)}
+
+.state{text-align:center;padding:48px 0;color:var(--muted)}
+.state .btn{margin-top:14px}
+
+.money{margin:44px 0 0;padding:26px 0;border-top:1px solid var(--line)}
+.money h2{font-family:"Cormorant Garamond",Georgia,serif;font-weight:500;font-size:28px;margin:0 0 4px}
+.money>p{margin:0 0 16px;color:var(--muted);font-size:15px}
+.acct{display:flex;align-items:center;gap:14px;padding:13px 0;border-top:1px solid var(--line)}
+.acct:last-child{border-bottom:1px solid var(--line)}
+.acct .txt{flex:1;min-width:0}
+.acct .svc{font-weight:500;margin:0}
+.acct .num{margin:0;font-size:15px;color:var(--muted);overflow-wrap:anywhere}
+
+footer{text-align:center;padding:48px 0 64px;color:var(--muted);font-size:14px}
+footer .sig{font-family:"Cormorant Garamond",Georgia,serif;font-style:italic;font-size:22px;color:var(--ink);margin:0}
+
+dialog{border:0;border-radius:18px;padding:0;background:var(--paper);color:var(--ink);
+  width:min(440px,calc(100% - 28px));box-shadow:0 20px 60px var(--shade)}
+dialog::backdrop{background:var(--shade)}
+.dlg{padding:26px 24px 22px}
+.dlg h3{font-family:"Cormorant Garamond",Georgia,serif;font-weight:500;font-size:28px;margin:0;line-height:1.1}
+.dlg .sub{margin:6px 0 18px;color:var(--muted);font-size:15px}
+.dlg label{display:block;font-size:14px;margin-bottom:6px}
+.dlg input{width:100%;border:1px solid var(--line);background:var(--bg);border-radius:10px;padding:10px 12px;font-size:16px}
+.dlg .err{color:var(--rose);font-size:14px;margin:8px 0 0;min-height:1.4em}
+.dlg .actions{display:grid;gap:10px;margin-top:14px}
+.dlg .close{width:100%;background:none;border:0;padding:8px;color:var(--muted);cursor:pointer;margin-top:6px}
+.dlg .ok{font-family:"Cormorant Garamond",Georgia,serif;font-size:44px;color:var(--gold);line-height:1;margin:0 0 6px}
+
+.toast{position:fixed;left:50%;bottom:calc(24px + env(safe-area-inset-bottom,0px));transform:translateX(-50%) translateY(20px);
+  background:var(--ink);color:var(--bg);padding:10px 18px;border-radius:999px;font-size:14px;opacity:0;pointer-events:none;
+  transition:opacity .25s,transform .25s;z-index:20;max-width:calc(100% - 32px);text-align:center}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+.hidden{display:none!important}
+@media (prefers-reduced-motion: reduce){*{transition:none!important;animation:none!important}}
+</style>
+</head>
+<body>
+
+<header class="hero wrap">
+  <h1 class="names">Agnes<span class="amp">&amp;</span>Ângelo</h1>
+  <p class="date">14 de novembro de 2026</p>
+  <h2 class="title">Lista de presentes</h2>
+  <p class="intro">A vossa presença é o nosso maior presente. Se quiserem ajudar-nos a construir o nosso lar, escolham um item e reservem-no com o vosso nome. Os outros convidados verão logo que já está reservado.</p>
+  <div class="progress" aria-live="polite">
+    <div class="bar"><i id="barFill"></i></div>
+    <p id="progressText"></p>
+  </div>
+</header>
+
+<nav class="filters hidden" id="filters" aria-label="Categorias">
+  <div class="wrap chips" id="chips"></div>
+</nav>
+
+<main class="wrap">
+  <div id="state" class="state">A carregar a lista…</div>
+  <div id="lists"></div>
+
+  <section class="money">
+    <h2>Prefere oferecer em dinheiro?</h2>
+    <p>Os valores podem ser enviados por qualquer um destes meios.</p>
+    <div class="acct">
+      <div class="txt"><p class="svc">e-Mola</p><p class="num">+258 87 790 1251 · Agnes Costa</p></div>
+      <button class="btn" data-copy="+258877901251" data-label="Número copiado">Copiar número</button>
+    </div>
+    <div class="acct">
+      <div class="txt"><p class="svc">M-Pesa</p><p class="num">+258 85 215 9583 · Ângelo Maranguene</p></div>
+      <button class="btn" data-copy="+258852159583" data-label="Número copiado">Copiar número</button>
+    </div>
+    <div class="acct">
+      <div class="txt"><p class="svc">Standard Bank</p><p class="num">NIB 0003 0118 0979 8911 0063 0 · Ângelo Maranguene</p></div>
+      <button class="btn" data-copy="000301180979891100630" data-label="NIB copiado">Copiar NIB</button>
+    </div>
+  </section>
+</main>
+
+<footer class="wrap"><p class="sig">Com carinho, Agnes &amp; Ângelo</p></footer>
+
+<dialog id="dlg">
+  <div class="dlg">
+    <!-- Passo 1: reservar -->
+    <form id="formReserve">
+      <h3 id="dlgTitle"></h3>
+      <p class="sub">Escreva o seu nome para reservar este presente. Só os noivos verão quem o reservou.</p>
+      <label for="guestName">O seu nome</label>
+      <input id="guestName" autocomplete="name" maxlength="60" placeholder="Ex.: Família Mondlane" required>
+      <p class="err" id="dlgErr" role="alert"></p>
+      <div class="actions">
+        <button type="submit" class="btn solid" id="reserveBtn">Reservar presente</button>
+      </div>
+      <button type="button" class="close" data-close>Cancelar</button>
+    </form>
+    <!-- Passo 2: confirmado -->
+    <div id="doneView" class="hidden">
+      <p class="ok" aria-hidden="true">✓</p>
+      <h3>Presente reservado</h3>
+      <p class="sub" id="doneText"></p>
+      <div class="actions">
+        <a class="btn" id="waAgnes" target="_blank" rel="noopener">Enviar mensagem à Agnes</a>
+        <a class="btn" id="waAngelo" target="_blank" rel="noopener">Enviar mensagem ao Ângelo</a>
+      </div>
+      <button type="button" class="close" data-close>Fechar</button>
+    </div>
+  </div>
+</dialog>
+
+<div class="toast" id="toast" role="status"></div>
+
+<script>
+(function(){
+  var REFRESH_MS = 12000;
+  var PHONES = { agnes:'258877901251', angelo:'258852159583' };
+  var NOTES = {
+    'Casa e electrodomésticos': 'Marcas preferidas: Hisense, Samsung ou Smart. Cores: preto, branco ou cinzento.',
+    'Utensílios de cozinha': 'Para os primeiros jantares da nossa casa.'
+  };
+
+  var items = [], filter = 'all', current = null, loadedOnce = false, loading = false, prevReserved = {};
+  var mine = {};
+  try { mine = JSON.parse(localStorage.getItem('minhasReservas') || '{}'); } catch(e){}
+  function saveMine(){ try{ localStorage.setItem('minhasReservas', JSON.stringify(mine)); }catch(e){} }
+
+  function el(tag, cls, text){ var e=document.createElement(tag); if(cls) e.className=cls; if(text!=null) e.textContent=text; return e; }
+  function toast(msg){ var t=document.getElementById('toast'); t.textContent=msg; t.classList.add('show'); clearTimeout(toast._t); toast._t=setTimeout(function(){t.classList.remove('show')},2800); }
+  function configured(){ return /^https:\/\/script\.google\.com\/.+\/exec$/.test(SCRIPT_URL); }
+
+  function api(params){
+    var qs = Object.keys(params).map(function(k){ return k+'='+encodeURIComponent(params[k]); }).join('&');
+    return fetch(SCRIPT_URL + '?' + qs + '&t=' + Date.now(), { method:'GET', redirect:'follow' })
+      .then(function(r){ if(!r.ok) throw new Error('http'); return r.json(); });
+  }
+
+  function showState(msg, retry){
+    var s=document.getElementById('state'); s.textContent=''; s.classList.remove('hidden');
+    s.appendChild(el('p',null,msg));
+    if(retry){ var b=el('button','btn','Tentar novamente'); b.addEventListener('click',function(){ showState('A carregar a lista…'); load(); }); s.appendChild(b); }
+  }
+
+  function load(){
+    if(!configured()){ showState('A lista ainda não está ligada à folha de cálculo. Cole o link do Apps Script no ficheiro index.html.'); return; }
+    if(loading) return; loading = true;
+    api({action:'list'}).then(function(res){
+      if(!res.ok) throw new Error(res.error||'server');
+      var changed = {};
+      res.items.forEach(function(it){ if(loadedOnce && it.reserved && !prevReserved[it.id]) changed[it.id]=true; });
+      items = res.items; prevReserved = {};
+      items.forEach(function(it){ prevReserved[it.id]=it.reserved; });
+      loadedOnce = true;
+      document.getElementById('state').classList.add('hidden');
+      render(changed);
+    }).catch(function(){
+      if(!loadedOnce) showState('Não foi possível carregar a lista. Verifique a ligação à internet.', true);
+    }).then(function(){ loading = false; });
+  }
+
+  function categories(){
+    var seen=[]; items.forEach(function(i){ if(seen.indexOf(i.cat)<0) seen.push(i.cat); }); return seen;
+  }
+
+  function renderChips(){
+    var box=document.getElementById('chips'); box.textContent='';
+    var opts=[['all','Todos']].concat(categories().map(function(c){return [c,c]})).concat([['free','Ainda disponíveis']]);
+    opts.forEach(function(o){
+      var b=el('button','chip',o[1]); b.dataset.f=o[0]; b.setAttribute('aria-pressed', String(filter===o[0]));
+      b.addEventListener('click',function(){ filter=o[0]; render({}); });
+      box.appendChild(b);
+    });
+    document.getElementById('filters').classList.remove('hidden');
+  }
+
+  function render(changed){
+    renderChips();
+    var lists=document.getElementById('lists'); lists.textContent='';
+    categories().forEach(function(cat){
+      if(filter!=='all' && filter!=='free' && filter!==cat) return;
+      var its=items.filter(function(i){ return i.cat===cat && !(filter==='free' && i.reserved); });
+      if(!its.length) return;
+      var sec=el('section','cat'); sec.appendChild(el('h2',null,cat));
+      if(NOTES[cat]) sec.appendChild(el('p','note',NOTES[cat]));
+      var ul=el('ul','items');
+      its.forEach(function(it){
+        var li=el('li','item'+(it.reserved?' done':'')+(changed[it.id]?' flash':''));
+        var txt=el('div','txt'); txt.appendChild(el('p','name',it.name));
+        if(it.desc) txt.appendChild(el('p','desc',it.desc));
+        li.appendChild(txt);
+        if(it.reserved){
+          li.appendChild(mine[it.id] ? el('span','tag mine','Reservado por si') : el('span','tag','Reservado'));
+        } else {
+          var b=el('button','btn','Oferecer'); b.addEventListener('click',function(){ openDlg(it); }); li.appendChild(b);
+        }
+        ul.appendChild(li);
+      });
+      sec.appendChild(ul); lists.appendChild(sec);
+    });
+    if(!lists.children.length && filter==='free'){
+      lists.appendChild(el('p','state','Todos os presentes já foram reservados. Obrigado a todos!'));
+    }
+    var done=items.filter(function(i){return i.reserved}).length;
+    document.getElementById('barFill').style.width=(items.length?done/items.length*100:0)+'%';
+    document.getElementById('progressText').textContent = done===0
+      ? items.length+' presentes à espera de dono'
+      : done+' de '+items.length+' presentes já reservados';
+  }
+
+  // Dialog
+  var dlg=document.getElementById('dlg'), nameInp=document.getElementById('guestName');
+  var form=document.getElementById('formReserve'), doneView=document.getElementById('doneView');
+  var errEl=document.getElementById('dlgErr'), reserveBtn=document.getElementById('reserveBtn');
+  try{ nameInp.value=localStorage.getItem('guestName')||''; }catch(e){}
+
+  function openDlg(it){
+    current=it; errEl.textContent=''; reserveBtn.disabled=false; reserveBtn.textContent='Reservar presente';
+    document.getElementById('dlgTitle').textContent=it.name;
+    form.classList.remove('hidden'); doneView.classList.add('hidden');
+    if(dlg.showModal) dlg.showModal(); else dlg.setAttribute('open','');
+    setTimeout(function(){ nameInp.focus(); },50);
+  }
+  function closeDlg(){ if(dlg.close) dlg.close(); else dlg.removeAttribute('open'); }
+  document.querySelectorAll('[data-close]').forEach(function(b){ b.addEventListener('click',closeDlg); });
+
+  var MSG = {
+    taken: 'Alguém acabou de reservar este presente. Por favor, escolha outro.',
+    name: 'Escreva o seu nome (pelo menos 2 letras).',
+    busy: 'Muitas pessoas a reservar ao mesmo tempo. Tente de novo dentro de instantes.',
+    notfound: 'Este presente já não está na lista.',
+    net: 'Sem ligação. Verifique a internet e tente de novo.'
+  };
+
+  form.addEventListener('submit',function(e){
+    e.preventDefault();
+    var who=nameInp.value.trim();
+    if(who.length<2){ errEl.textContent=MSG.name; nameInp.focus(); return; }
+    try{ localStorage.setItem('guestName',who); }catch(e){}
+    reserveBtn.disabled=true; reserveBtn.textContent='A reservar…'; errEl.textContent='';
+    api({action:'reserve', id:current.id, name:who}).then(function(res){
+      if(res.ok){
+        mine[current.id]=true; saveMine();
+        current.reserved=true; prevReserved[current.id]=true; render({});
+        var first=who.split(' ')[0];
+        document.getElementById('doneText').textContent='Obrigado, '+first+'! "'+current.name+'" está agora reservado em seu nome. Se quiser, deixe-nos uma mensagem.';
+        var msg='Olá! Sou '+who+' e acabei de reservar *'+current.name+'* na vossa lista de presentes de casamento. 💍';
+        document.getElementById('waAgnes').href='https://wa.me/'+PHONES.agnes+'?text='+encodeURIComponent(msg);
+        document.getElementById('waAngelo').href='https://wa.me/'+PHONES.angelo+'?text='+encodeURIComponent(msg);
+        form.classList.add('hidden'); doneView.classList.remove('hidden');
+      } else {
+        errEl.textContent = MSG[res.error] || 'Não foi possível reservar. Tente de novo.';
+        reserveBtn.disabled=false; reserveBtn.textContent='Reservar presente';
+        if(res.error==='taken' || res.error==='notfound'){ reserveBtn.disabled=true; load(); }
+      }
+    }).catch(function(){
+      errEl.textContent=MSG.net; reserveBtn.disabled=false; reserveBtn.textContent='Reservar presente';
+    });
+  });
+
+  // Copy buttons
+  document.querySelectorAll('[data-copy]').forEach(function(b){
+    b.addEventListener('click',function(){
+      var v=b.dataset.copy, label=b.dataset.label;
+      try{ navigator.clipboard.writeText(v).then(function(){toast(label)},function(){toast(v)}); }
+      catch(e){ toast(v); }
+    });
+  });
+
+  // Live updates
+  load();
+  setInterval(function(){ if(!document.hidden) load(); }, REFRESH_MS);
+  document.addEventListener('visibilitychange',function(){ if(!document.hidden) load(); });
+})();
+</script>
+</body>
+</html>
